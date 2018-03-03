@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ItemService } from "../item.service";
+
 @Component({
   selector: 'app-item-cadastro',
   templateUrl: './item-cadastro.component.html',
@@ -7,14 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItemCadastroComponent implements OnInit {
 
-  itens = [
-    { etiqueta: 'AA1234', descricao: 'Notebook', dataAquisicao: new Date() },
-    { etiqueta: 'BB9876', descricao: 'Mouse', dataAquisicao: new Date() }
-  ];
+  itens = [];
 
-  constructor() { }
+  constructor( private itemService: ItemService) { }
 
   ngOnInit() {
+    this.consultar();
   }
 
+  consultar(){
+    this.itemService.listar().subscribe( dados => this.itens = dados );
+  }
 }
